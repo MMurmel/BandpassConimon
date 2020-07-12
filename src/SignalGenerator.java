@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SignalGenerator {
 
@@ -65,5 +62,23 @@ public class SignalGenerator {
         }
 
         return addedWave;
+    }
+
+    // Aufgabe 6
+    public static double[] generateNoise(double duration, int sampleRate, double mean, double standardDeviation){
+        Random r = new Random();
+        int sampleSize = (int) Math.ceil(duration * sampleRate);
+
+        double[] noise = new double[sampleSize];
+
+        for (int i = 0; i < noise.length; i++) {
+            noise[i] = r.nextGaussian() * standardDeviation + mean;
+        }
+
+        return noise;
+    }
+
+    public static double[] generateNoise(double duration, int sampleRate){
+        return generateNoise(duration, sampleRate, 0, 1);
     }
 }
