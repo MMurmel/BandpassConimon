@@ -10,6 +10,9 @@ dazu entschieden nur einen einfachen Wrapper zu schreiben.
 
 Aufgabe 2
 ---------
+
+![Signal](./graphics/signal.png "Signal aus 1Hz, 100Hz und 10kHz")
+
 siehe `main.java` bzw. `SignalGenerator.java`.
 
 Ein sehr einfacher Signalgenerator mit mehreren Einschränkungen:
@@ -29,8 +32,25 @@ Mindestens eine Hyperperiode (in diesem Fall eine Sekunde).
 Nach dem Abtasttheorem von Shannon/Nyquist muss gelten:
 > 2 * f_max < f_abtast
 
- In diesem Fall ist f_max = 10kHz, also muss mit **mehr** als 20kHz abgetastet werden.
+In diesem Fall ist f_max = 10kHz, also muss mit **mehr** als 20kHz abgetastet werden.
+
+Aufgabe 3
+---------
+
+![Signal](./graphics/filtered.png "Gefiltertes Signal")
+siehe `main.java`
+
+Aufgabe 4
+---------
  
- Aufgabe 3
- ---------
- siehe `main.java`
+![Signal](./graphics/spectrum.png "Spektrum des Originalsignals")
+![Signal](./graphics/filtered_spectrum.png "Spektrum des gefilterten Signals")
+
+
+Aufgabe 6
+---------
+ 
+![Signal](./graphics/noise.png "Rauschsignal")
+![Signal](./graphics/noise_spectrum.png "Rauschsignal Spektrum")
+![Signal](./graphics/filtered_noise.png "Gefiltertes Rauschsignal")
+![Signal](./graphics/filtered_noise_spectrum.png "Gefiltertes Rauschsignal Spektrum")

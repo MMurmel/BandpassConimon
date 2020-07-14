@@ -11,7 +11,6 @@ public class Main {
         int sampleRate = 96000;
         //int sampleRate = Collections.max(Arrays.asList(frequencies)) * 2 + 1;
         double[] signal = SignalGenerator.generateSuperimposingSineWaves(Arrays.asList(frequencies), sampleRate);
-
         dataToFile(Arrays.stream(signal).boxed().toArray(Double[]::new), "signal");
 
         // Aufgabe 3
@@ -20,7 +19,6 @@ public class Main {
         for (int i = 0; i < filteredSignal.length; i++) {
             filteredSignal[i] = filter.step(filteredSignal[i]);
         }
-
         dataToFile(Arrays.stream(filteredSignal).boxed().toArray(Double[]::new), "filtered");
 
         // Aufgabe 4
@@ -31,17 +29,40 @@ public class Main {
         Complex[] cSignal = new Complex[power];
         Complex[] cFilteredSignal = new Complex[power];
         for (int i = 0; i < cFilteredSignal.length; i++) {
-            cFilteredSignal[i] = (i < filteredSignal.length) ? new Complex(filteredSignal[i],0) : new Complex(0,0);
             cSignal[i] = (i < signal.length) ? new Complex(signal[i],0) : new Complex(0,0);
-
+            cFilteredSignal[i] = (i < filteredSignal.length) ? new Complex(filteredSignal[i],0) : new Complex(0,0);
         }
+
         // FFT
         Complex[] spectrum = FFT.fft(cSignal);
         Complex[] filteredSpectrum = FFT.fft(cFilteredSignal);
 
-
         dataToFile(Arrays.stream(spectrum).map(Complex::abs).toArray(Double[]::new), "spectrum");
         dataToFile(Arrays.stream(filteredSpectrum).map(Complex::abs).toArray(Double[]::new), "filtered_spectrum");
+
+        //--------------------------
+        // Aufgabe 6 und 7
+        double[] noise = SignalGenerator.generateNoise(1, 96000);
+        dataToFile(Arrays.stream(noise).boxed().toArray(Double[]::new), "noise");
+
+        double[] filteredNoise = noise.clone();
+        for (int i = 0; i < filteredNoise.length; i++) {
+            filteredNoise[i] = filter.step(filteredNoise[i]);
+        }
+        dataToFile(Arrays.stream(filteredNoise).boxed().toArray(Double[]::new), "filtered_noise");
+
+        Complex[] cNoise = new Complex[power];
+        Complex[] cFilteredNoise = new Complex[power];
+        for (int i = 0; i < cFilteredSignal.length; i++) {
+            cNoise[i] = (i < signal.length) ? new Complex(noise[i],0) : new Complex(0,0);
+            cFilteredNoise[i] = (i < signal.length) ? new Complex(filteredNoise[i],0) : new Complex(0,0);
+        }
+
+        Complex[] noiseSpectrum = FFT.fft(cNoise);
+        Complex[] filteredNoiseSpectrum = FFT.fft(cFilteredNoise);
+
+        dataToFile(Arrays.stream(noiseSpectrum).map(Complex::abs).toArray(Double[]::new), "noise_spectrum");
+        dataToFile(Arrays.stream(filteredNoiseSpectrum).map(Complex::abs).toArray(Double[]::new), "filtered_noise_spectrum");
 
     }
 
