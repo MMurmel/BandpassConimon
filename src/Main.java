@@ -48,30 +48,27 @@ public class Main {
         Double[] fAmplitudes = Arrays.stream(filteredSpectrum).map(Complex::abs).toArray(Double[]::new);
 
         // using this complicated way instead of Collections.max(…), because the highest value in the unfiltered spectrum isn't necessarily the highest in the
-        int low = 0,flow = 0,mid = 100,fmid = 100,high = 10000,fhigh = 10000;
+        int low = 0,mid = 100,high = 10000;
         for (int i = 0; i < 10; i++) {
             if (amplitudes[i] > amplitudes[low]) low = i;
-            if (fAmplitudes[i] > fAmplitudes[flow]) flow = i;
         }
 
         for (int i = 100; i < 120; i++) {
             if (amplitudes[i] > amplitudes[mid]) mid = i;
-            if (fAmplitudes[i] > fAmplitudes[fmid]) fmid = i;
         }
 
         for (int i = 10000; i < 14000; i++) {
             if (amplitudes[i] > amplitudes[high]) high = i;
-            if (fAmplitudes[i] > fAmplitudes[fhigh]) fhigh = i;
         }
 
         // calculating dampening
-        double dampLow = 10 * Math.log10(fAmplitudes[flow] / amplitudes[low]);
-        double dampMid = 10 * Math.log10(fAmplitudes[fmid] / amplitudes[mid]);
-        double dampHigh = 10 * Math.log10(fAmplitudes[fhigh] / amplitudes[high]);
+        double dampLow = 10 * Math.log10(fAmplitudes[low] / amplitudes[low]);
+        double dampMid = 10 * Math.log10(fAmplitudes[mid] / amplitudes[mid]);
+        double dampHigh = 10 * Math.log10(fAmplitudes[high] / amplitudes[high]);
 
-        System.out.println("Low frequency: value original:" + amplitudes[low] + " \tvalue filtered" + fAmplitudes[flow] + "\tdampening" + dampLow);
-        System.out.println("Mid frequency: value original:" + amplitudes[mid] + " \tvalue filtered" + fAmplitudes[fmid] + "\tdampening" + dampMid);
-        System.out.println("High frequency: value original:" + amplitudes[high] + " \tvalue filtered" + fAmplitudes[fhigh] + "\tdampening" + dampHigh);
+        System.out.println("Low frequency: index:" + low + "\tvalue original:" + amplitudes[low] + " \tvalue filtered" + fAmplitudes[low] + "\tdampening" + dampLow);
+        System.out.println("Mid frequency: index:" + mid + "\tvalue original:" + amplitudes[mid] + " \tvalue filtered" + fAmplitudes[mid] + "\tdampening" + dampMid);
+        System.out.println("High frequency:index:" + high + "\t2value original:" + amplitudes[high] + " \tvalue filtered" + fAmplitudes[high] + "\tdampening" + dampHigh);
 
 
         //--------------------------

@@ -54,6 +54,21 @@ Spektrum des ungefilterten Signals:
 Spektrum des gefilterten Signals:
 ![Signal](./graphics/filtered_spectrum.png "Spektrum des gefilterten Signals")
 
+Aufgabe 5
+---------
+Siehe `Main.java`.
+
+Messungen im Spektrum des (gefilterten) Signals haben folgende Werte ergeben:
+
+|markante Frequenz|Amplitude ungefiltert|Amplitude gefiltert|tatsächliche Dämpfung|erwartete Dämpfung|
+|-----------------|:-------------------:|:-----------------:|---------------------|------------------|
+|1                |49344                |506                |-19.88 dB            |~ -40 dB          |
+|118              |1173                 |1276               |0.36 dB              |0 dB              |
+|13653            |43430                |766                |-17.53 dB            |~ -40 dB          |
+
+Die Dämpfung des hier eingesetzten Filters im Sperrbereich entspricht nicht der gewünschten Dämpfung, 
+die hier noch einmal um den Faktor 100 stärker wäre.
+Im Durchlassbereich kann aber mit einer Verstärkung um 0.3 dB eine passable Leistung erzielt werden.
 
 Aufgabe 6
 ---------
@@ -87,3 +102,12 @@ Weiterhin ist zu sehen, wie die Werte außerhalb des Intervalls (10,1000) stark 
 Grenzfrequenzen des Bandpassfilters entspricht.
 Im Gegensatz zum ungefilterten Rauschsignal kann man hier sagen, dass die einzelnen Frequenzanteile des
 Signals großteils einem bestimmten Frequenzbereich zugeordnet werden können. Der Bandpass funktioniert! :)
+
+offene Probleme
+---------------
+- Es wird keine Fensterfunktion verwendet.
+- Die „interessanten“ Frequenzen scheinen verschoben zu sein. 
+  Obwohl der n-te Index im Spektrum bei den genutzten Parametern (Signaldauer = 1 sec) der Frequenz n Hz
+  entsprechen sollte, liegen die stärksten Frequezanteile laut FFT bei 1, 118 und 13.653 Hz statt bei
+  1, 100 und 10.000 Hz.
+- Der Bandpass leistet nur -20 dB/Dekade im Sperrbereich.
